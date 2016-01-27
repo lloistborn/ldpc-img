@@ -1,1 +1,4 @@
-# ldpc-img
+# Digital Watermarking Method using LDPC Code for Clipped Image
+
+#Abstract
+"A method of watermarking using low-density parity-check (LDPC) code was evaluated according to Information Hiding Criteria (IHC). Joint Photographic Experts Group (JPEG) compression and clipping are assumed to be attacks against stego-images in these criteria. Markers or synchronization codes were embedded into stego-images to find the starting positions of marked areas to defend against clipping attacks. LDPC code effectively decoded messages without errors for JPEG compression. We could use quantization index modulation (QIM) for embedding and extracting watermarks without the original images. As a result, our method could achieve an average peak signal-to-noise ratio (PSNR) of 47:141 dB when we assessed image quality. It could achieve an average compression ratio of 1:334% with JPEG compression when we assessed tolerance." (Hirata & Kawamura, 2014)
