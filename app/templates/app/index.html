@@ -1,1 +1,57 @@
-<h1>its works</h1>
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="row" style="margin-bottom:20px;">
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>Proses Encode</strong>
+					</div>
+					<div class="panel-body">
+						<form action="{% url 'encode' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+							<label>Gambar</label>
+							<div class="form-group">
+								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])">
+							</div>
+
+							<label>Pesan</label>
+							<div class="form-group">
+								<textarea id="pesan" name='pesan' rows="3" cols="50" maxlength="50" ></textarea>
+								<div id="counter_char"></div>
+							</div>
+
+            				<input id="btnencode" class="btn btn-danger" type="submit" value="encode">
+						</form>
+                	</div> 
+                </div>
+            </div>
+
+            <div class="col-sm-6" class="pull-right">
+            	<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>Proses Decode</strong>
+					</div>
+					<div class="panel-body">
+						<form action="" method="POST" enctype="multipart/form-data">
+							<label>Gambar</label>
+							<div class="form-group">
+								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])">
+							</div>
+
+							<label>Pesan</label>
+							<div class="form-group">
+								<label></label>
+							</div>
+
+            				<input id="btndecode" class="btn btn-success" type="submit" value="decode!">
+						</form>
+                	</div> 
+                </div>
+        	</div>
+    	</div>
+		<img src="" id="preview">
+	</div>
+</div>
+{% endblock content %}

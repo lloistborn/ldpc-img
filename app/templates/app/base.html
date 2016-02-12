@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+	<title>{{ title_page }}</title>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/glyphicons-halflings-regular.ttf' %}">
+</head>
+<body>
+
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><font color="#248f24">Digital Watermark</font></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">
+		{% block content %}
+
+		{% endblock content %}
+	</div>
+
+	<script src="{% static 'jquery/jquery-1.12.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.10.3.min.js' %}"></script>
+
+    <script type="text/javascript">
+    	$(document).ready(function() {
+		    var text_max = 50;
+		    $('#counter_char').html(text_max);
+
+		    $('#pesan').keyup(function() {
+		        var text_length = $('#pesan').val().length;
+		        var text_remaining = text_max - text_length;
+
+		        $('#counter_char').html(text_remaining);
+		    });
+		});
+    </script>
+
+</body>
+</html>
