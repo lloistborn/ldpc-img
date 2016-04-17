@@ -13,12 +13,12 @@
 						<form action="{% url 'encode' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 							<label>Gambar</label>
 							<div class="form-group">
-								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])">
+								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])" required="">
 							</div>
 
 							<label>Pesan</label>
 							<div class="form-group">
-								<textarea id="pesan" name='pesan' rows="3" cols="50" maxlength="50" ></textarea>
+								<textarea id="pesan" name='pesan' rows="3" cols="50" maxlength="50" required=""></textarea>
 								<div id="counter_char"></div>
 							</div>
 
@@ -37,9 +37,9 @@
 						<form action="{% url 'decode' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 							<label>Gambar</label>
 							<div class="form-group">
-								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])">
+								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])" required="">
 							</div>
-							
+
             				<input id="btndecode" class="btn btn-success" type="submit" value="decode!">
 						</form>
                 	</div> 

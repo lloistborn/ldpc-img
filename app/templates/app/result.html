@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+Pesan: <strong>{{ result }}</strong>
+<br>
+PSNR Metode LSB: <strong>{{ psnr }}</strong>
+<br>
+<br>
+
+<a href="{% url 'index' %}">Kembali</a>
+
+{% endblock content %}
