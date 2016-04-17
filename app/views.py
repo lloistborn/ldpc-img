@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from PIL import Image, ImageOps, ImageFilter
 from django.conf import settings
 import os
+
+from .lsb import LSB
 
 # Create your views here.
 def index(request):
@@ -12,37 +13,54 @@ def index(request):
 		})
 
 def encode(request):
-	title_page = 'encoded'
+	title_page 	= "result"
+	result 		= "seems you are not enter any images and text"
 
 	if request.method == 'POST':
 		msg = request.POST['pesan']
 
 		uploaded_filename = handle_upload_file(request.FILES['img'])
-		# output_filename = applyfilter(uploaded_filename)
 
+		lsb = LSB() # buat objek dari kelas LSB
 
+		if lsb.embed_msg(uploaded_filename, msg): # masukan pesan ke dalam gambar
+			result = "berhasil"
+		else:
+			result = "gagal memasukkan pesan, tipe gambar tidak sesuai"
 
-		# print(uploaded_filename)
-		# print(msg)
-		# print(output_filename)
-
-		return render(request, 'app/index.html', {
-			'title_page' :	title_page,
+		return render(request, 'app/result.html', {
+			'title_page' 	: title_page,
+			'result'		: result,
 			})	
 
-	return render(request, 'app/index.html', {
-		'title_page' :	title_page,
+	return render(request, 'app/result.html', {
+		'title_page' 	: title_page,
+		'result'		: result,
 		})
 
-# embedding process
-def embedd_msg(filename, msg):
-	inputfile = os.path.join(settings.MEDIA_ROOT, filename)
-	f = filename.split('.')
-	outputfilename = f[0] + '-out.jpg'
+def decode(request):
+	title_page 	= "result"
+	result 		= "seems you are not enter any images"
 
-	outputfile = os.path.join(settings.MEDIA_ROOT, outputfilename)
+	if request.method == 'POST':
+		uploaded_filename = handle_upload_file(request.FILES['img'])
 
-	im = Image.open(inputfile)
+		lsb = LSB() # buat objek dari kelas LSB
+
+		result = lsb.extract_msg(uploaded_filename) 
+
+		if not result:
+			result = "tipe gambar tidak sesuai, gagal mengekstrak pesan"
+		
+		return render(request, 'app/result.html', {
+			'title_page' 	: title_page,
+			'result'		: result,
+			})	
+
+	return render(request, 'app/result.html', {
+		'title_page' 	: title_page,
+		'result'		: result,
+		})
 
 def handle_upload_file(file):
 	# create the folder if it doesn't exist.
@@ -60,27 +78,4 @@ def handle_upload_file(file):
 		fout.write(chunk)
 	fout.close()
 
-	return file.name
-
-# sepia
-def applyfilter(filename):
-	inputfile = os.path.join(settings.MEDIA_ROOT, filename)
-
-	f = filename.split('.')
-	outputfilename = f[0] + '-out.jpg'
-
-	outputfile = os.path.join(settings.MEDIA_ROOT, outputfilename)
-
-	im = Image.open(inputfile)
-	
-	sepia = []
-	r, g, b = (239, 224, 185)
-	for i in range(255):
-		sepia.extend((r*i//255, g*i//255, b*i//255))
-
-	im = im.convert('L')
-	im.putpalette(sepia)
-	im = im.convert('RGB')
-
-	im.save(outputfile)
-	return outputfilename
+	return full_filename

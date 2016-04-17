@@ -22,7 +22,7 @@
 								<div id="counter_char"></div>
 							</div>
 
-            				<input id="btnencode" class="btn btn-danger" type="submit" value="encode">
+            				<input id="btnencode" class="btn btn-primary" type="submit" value="encode">
 						</form>
                 	</div> 
                 </div>
@@ -34,17 +34,12 @@
 						<strong>Proses Decode</strong>
 					</div>
 					<div class="panel-body">
-						<form action="" method="POST" enctype="multipart/form-data">
+						<form action="{% url 'decode' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 							<label>Gambar</label>
 							<div class="form-group">
 								<input type="file" name="img" onchange="$('#preview')[0].src = window.URL.createObjectURL(this.files[0])">
 							</div>
-
-							<label>Pesan</label>
-							<div class="form-group">
-								<label></label>
-							</div>
-
+							
             				<input id="btndecode" class="btn btn-success" type="submit" value="decode!">
 						</form>
                 	</div> 
