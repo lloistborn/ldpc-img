@@ -1,6 +1,7 @@
 from PIL import Image
 import binascii
 from .ipsnr import IPSNR
+import math
 
 class LSB(IPSNR):
 	def rgb2hex(self, r, g, b):
@@ -84,13 +85,41 @@ class LSB(IPSNR):
 
 		return False # incorrect image mode, couldn't retrieve
 
-	def count_psnr(self, original_img, stego_img):
+	def count_MSE(self, original_img, stego_img):
 		img 	= Image.open(original_img)
 		stega	= Image.open(stego_img)
 
 		img 	= img.getdata()
 		stega	= stega.getdata()
 
-		for data_img in img:
-			print(data_img)
-			break
+		MSE 	= 0
+		CMax	= 0
+
+		width, height = img.size
+
+		len_img = len(img)
+		for i in range(len_img):
+			img_pix		= (img[i][0] + img[i][1] + img[i][2]) / 3
+			stega_pix	= (stega[i][0] + stega[i][1] + stega[i][2]) / 3
+
+			MSE 	+= ((stega_pix - img_pix) * (stega_pix - img_pix)) # get MSE
+
+			# get CMax
+			if img_pix > stega_pix:
+				CMax = img_pix
+			else:
+				CMax = stega_pix
+
+		MSE /= (width*height)
+
+		return MSE, CMax
+
+	def count_psnr(self, original_img, stego_img):
+		PSNR = 0
+		MSE, CMax = self.count_MSE(original_img, stego_img)
+
+		temp = (CMax*CMax) / MSE
+
+		PSNR = 10 * (math.log(10) / math.log(temp)) # need to fix, this calculation still resulted wrong number 
+
+		return PSNR
