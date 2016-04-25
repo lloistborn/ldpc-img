@@ -11,7 +11,7 @@ First, move into dir where do you want to put the cloning git, for example E:
 $ git clone [git-repo-url]ldpc-img.git
 $ cd ldpc-img
 ```
-Install Virtual Machine on E:/ldpc-img/ and activate it
+set virtual environment for django project on E:/asep/, so it won't bother your machine then activate it
 ```sh
 $ python -m venv myenv
 $ myenv/Scripts/activate.bat
@@ -24,7 +24,7 @@ or
 ```sh
 $ (myvenv) ~$ python -m pip install django
 ```
-Runserver - Check where ever you find file manage.py 
+Runserver - find out where ever you find file manage.py then run it like so
 ```sh
 $ (myvenv) ~$ python manage.py runserver 
 ```
