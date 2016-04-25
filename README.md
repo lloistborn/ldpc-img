@@ -30,7 +30,7 @@ $ (myvenv) ~$ python manage.py runserver
 ```
 
 ### License
-Make sure answer and teach those people whom asking about any related to this topic
+Make sure answer and teach those people whom asking you about any related to this topic
 
 ### Contact
 @morensya on twitter
