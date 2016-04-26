@@ -110,7 +110,7 @@ class NLSB(IPSNR):
 
 	def count_psnr(self, original_img, stego_img):
 		PSNR = 0
-		MSE, CMax = self.count_MSE(original_img, stego_img)
+		MSE  = self.count_MSE(original_img, stego_img)
 
 		temp = (255*255) / MSE
 
