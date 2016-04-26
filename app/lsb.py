@@ -93,7 +93,6 @@ class LSB(IPSNR):
 		stega	= stega.getdata()
 
 		MSE 	= 0
-		CMax	= 0
 
 		width, height = img.size
 
@@ -104,21 +103,16 @@ class LSB(IPSNR):
 
 			MSE 	+= ((stega_pix - img_pix) * (stega_pix - img_pix)) # get MSE
 
-			# get CMax
-			if img_pix > stega_pix:
-				CMax = img_pix
-			else:
-				CMax = stega_pix
-
 		MSE /= (width*height)
 
-		return MSE, CMax
+		return MSE
 
 	def count_psnr(self, original_img, stego_img):
 		PSNR = 0
-		MSE, CMax = self.count_MSE(original_img, stego_img)
+		MSE = self.count_MSE(original_img, stego_img)
 
-		temp = (CMax*CMax) / MSE
+		# 255 is cmax of pixel in images
+		temp = 255 / MSE
 
 		PSNR = 10 * (math.log(10) / math.log(temp)) # need to fix, this calculation still resulted wrong number 
 
