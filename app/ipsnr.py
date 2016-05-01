@@ -18,10 +18,12 @@ class IPSNR():
 			img_pix		= (img[i][0] + img[i][1] + img[i][2]) / 3
 			stega_pix	= (stega[i][0] + stega[i][1] + stega[i][2]) / 3
 
-			MSE 		+= ((stega_pix - img_pix) * (stega_pix - img_pix)) # get MSE
+			MSE 		+= math.pow((stega_pix - img_pix), 2)			
 
-
+		print(MSE)
+		print(width, height)
 		MSE /= (width*height)
+		print(MSE)
 
 		return MSE
 
@@ -29,8 +31,6 @@ class IPSNR():
 		PSNR = 0
 		MSE  = self.count_MSE(original_img, stego_img)
 
-		temp = (255*255) / MSE
-
-		PSNR = 10 * math.log(10) * temp  
+		PSNR = 10 * math.log10((math.pow(255, 2)) / MSE)
 
 		return PSNR

@@ -62,14 +62,14 @@ def decode(request):
 		uploaded_filename = request.FILES['img']
 
 		if 'decodelsb' in request.POST:
-			method = 'lsb'
+			method = 'Improve LSB'
 			folderimg = 'imgforlsb'
 			lsb = LSB() # buat objek dari kelas LSB
 
 			result = lsb.extract_msg(uploaded_filename)
 
 		elif 'decodenlsb' in request.POST:
-			method = 'nlsb'
+			method = 'Old LSB'
 			folderimg = 'imgfornlsb'
 			nlsb = NLSB() # buat objek dari kelas LSB
 
