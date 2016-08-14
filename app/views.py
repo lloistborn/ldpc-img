@@ -42,12 +42,12 @@ def encode(request):
 			else:
 				result = "gagal memasukkan pesan, tipe gambar tidak sesuai"
 
-		return render(request, 'app/result.html', {
+		return render(request, 'app/index.html', {
 			'title_page' 	: title_page,
 			'result'		: result,
 			})	
 
-	return render(request, 'app/result.html', {
+	return render(request, 'app/index.html', {
 		'title_page' 	: title_page,
 		'result'		: result,
 		})
@@ -86,14 +86,14 @@ def decode(request):
 			psnr = IPSNR()
 			val_psnr = psnr.count_psnr(original_img, stego_img) # hitung nilai psnr
 
-		return render(request, 'app/result.html', {
+		return render(request, 'app/index.html', {
 			'title_page' 	: title_page,
 			'result'		: result,
 			'psnr'			: val_psnr,
 			'method'		: method,
 			})	
 
-	return render(request, 'app/result.html', {
+	return render(request, 'app/index.html', {
 		'title_page' 	: title_page,
 		'result'		: result,
 		'psnr'			: val_psnr,
