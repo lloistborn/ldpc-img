@@ -1,7 +1,6 @@
 from PIL import Image
 import binascii
 from .ipsnr import IPSNR
-import math
 
 class NLSB(IPSNR):
 	def rgb2hex(self, r, g, b):
@@ -61,7 +60,7 @@ class NLSB(IPSNR):
 			img.putdata(newData)
 			img.save(filename, "PNG")
 
-			return True # completed
+			return newData # completed
 		return False # incorrect image mode, couldn't hide
 
 	def extract_msg(self, filename):

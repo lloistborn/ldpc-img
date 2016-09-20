@@ -17,6 +17,7 @@ def index(request):
 def encode(request):
 	title_page 	= "result"
 	result 		= "seems you are not enter any images and text"
+	data 		= False
 
 	if request.method == 'POST':
 		msg = request.POST['pesan']
@@ -27,7 +28,8 @@ def encode(request):
 			
 			lsb = LSB() # buat objek dari kelas LSB
 
-			if lsb.embed_msg(uploaded_filename, msg): # masukan pesan ke dalam gambar
+			data = lsb.embed_msg(uploaded_filename, msg)
+			if data: # masukan pesan ke dalam gambar
 				result = "berhasil"
 			else:
 				result = "gagal memasukkan pesan, tipe gambar tidak sesuai"
@@ -37,7 +39,8 @@ def encode(request):
 
 			nlsb = NLSB() # buat objek dari kelas NLSB
 
-			if nlsb.embed_msg(uploaded_filename, msg): # masukan pesan ke dalam gambar
+			data = nlsb.embed_msg(uploaded_filename, msg)
+			if data: # masukan pesan ke dalam gambar
 				result = "berhasil"
 			else:
 				result = "gagal memasukkan pesan, tipe gambar tidak sesuai"
@@ -45,11 +48,13 @@ def encode(request):
 		return render(request, 'app/index.html', {
 			'title_page' 	: title_page,
 			'result'		: result,
+			'data'			: data
 			})	
 
 	return render(request, 'app/index.html', {
 		'title_page' 	: title_page,
 		'result'		: result,
+		'data'			: data
 		})
 
 def decode(request):
@@ -60,6 +65,15 @@ def decode(request):
 
 	if request.method == 'POST':
 		uploaded_filename = request.FILES['img']
+
+		temp = uploaded_filename.name.split('.')
+		if(temp[-3:] != "out"):
+			return render(request, 'app/index.html', {
+				'title_page' 	: title_page,
+				'result'		: "image does not contains any messages",
+				'psnr'			: val_psnr,
+				'method'		: ""
+				})		
 
 		if 'decodelsb' in request.POST:
 			method = 'Improve LSB'
